@@ -1,6 +1,6 @@
 require_relative "boot"
 
-require "rails"
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -12,14 +12,19 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
-# require "sprockets/railtie"
+require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require_relative '../../.spotify_key.rb'
+
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module ExampleProject
+RSpotify::authenticate($client_id, $client_secret)
+
+module Synesthesium
   class Application < Rails::Application
     config.load_defaults 6.1
     # This is set in apps generated with the --api flag, and removes session/cookie middleware

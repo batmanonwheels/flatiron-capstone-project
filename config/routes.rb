@@ -1,13 +1,7 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :likes
-  resources :reviews
-  resources :favorites
-  resources :tracks
-  resources :users
-  get '/auth/spotify/callback', to: 'users#spotify'
 
-  get "/hello", to: "application#hello_world"
+  scope '/api' do
+    resources :tracks, :comments, :likes, :reviews, :favorites, :users
+  end
 
-  get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

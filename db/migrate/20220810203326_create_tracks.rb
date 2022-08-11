@@ -7,6 +7,7 @@ class CreateTracks < ActiveRecord::Migration[6.1]
       t.string :image
       t.string :preview
       t.string :spotify_id
+      t.string :spotify_uri
 
       t.timestamps
     end

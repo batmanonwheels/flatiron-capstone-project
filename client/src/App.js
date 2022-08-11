@@ -1,28 +1,34 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import Home from './Home';
+import Header from './Header';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [tracks, setTracks] = useState([]);
+  const [token, setToken] = useState(Cookies.get('spotifyAuthToken'));
 
   useEffect(() => {
-    fetch("/hello")
+    fetch('/tracks')
       .then((r) => r.json())
-      .then((data) => setCount(data.count));
+      .then((data) => setTracks(data));
   }, []);
+  console.log(tracks);
 
   return (
-    <BrowserRouter>
-      <div className="App">
+    <div className='App'>
+      <Header token={token} setToken={setToken} />
+      <BrowserRouter>
         <Switch>
-          <Route path="/testing">
-            <h1>Test Route</h1>
-          </Route>
-          <Route path="/">
-            <h1>Page Count: {count}</h1>
+          {/* <Route path='*'>
+            <h1>Not Found!</h1>
+          </Route> */}
+          <Route exact path='/'>
+            <Home tracks={tracks} />
           </Route>
         </Switch>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
 

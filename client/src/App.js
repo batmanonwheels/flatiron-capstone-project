@@ -8,6 +8,7 @@ function App() {
   const [tracks, setTracks] = useState([]);
   const [token, setToken] = useState(Cookies.get('spotifyAuthToken'));
 
+  console.log(Cookies.get('spotifyAuthToken'));
   useEffect(() => {
     fetch('/tracks')
       .then((r) => r.json())

@@ -31,3 +31,4 @@
 /config/master.key
 
 config/.spotify_key.rb
+client/src/keys/spotify_keys.js

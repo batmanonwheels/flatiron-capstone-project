@@ -1,4 +1,4 @@
-class Api::TracksController < ApplicationController
+class Api::V1::TracksController < ApplicationController
   def index
     render json: Track.all, status: :ok
   end
@@ -19,5 +19,12 @@ class Api::TracksController < ApplicationController
     render json: @tracks
   end
 
+  def random
+    s_tracks = RSpotify::Playlist.browse_featured.first.tracks
+    @tracks = s_tracks.map do |s_track|
+      Track.new_track(s_track)
+    end
+    render json: @tracks
+    end
 
 end

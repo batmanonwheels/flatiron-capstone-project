@@ -11,34 +11,21 @@ class UsersController < ApplicationController
   #   end
   # end
 
-  def create
-    # if params[:error]
-    #   puts 'LOGIN ERROR', params
-
-    #   redirect_to ""
-    # else
-    #   body = {
-    #     grant_type: "authorization_code",
-    #     code: params[:code],
-    #     redirect_uri: '',
-    #     client_id: '',
-    #     client_secret: ''
-    #   }
-    #   auth_response = RestClient.post('https://accounts.spotify.com/api/token', body)
-
-    #   auth_params = JSON.parse(auth_response.body)
-
-    #   header = {Authorization: "Bearer #{auth params ["access token"]}"}
-
-    #   user_response = RestClient.get ("https://api.spotify.com/v1/me", header)
-
-    #   user_params = JSON.parse(user_response.body)
-    # end
-  end
 
   def show
     user = User.find_by(id: session[:user_id])
     render json: user
+  end
+
+  def create
+    user = User.create!(user_params)
+    session[:user_id] = user.id
+    render json: user, status: :created
+  end
+
+  def update
+    user = User.update!(user_params)
+    render json: user, status: :accepted
   end
 
   # def spotify
@@ -79,14 +66,15 @@ class UsersController < ApplicationController
   #   # Check doc for more
   # end
 
-  private
 
-  # def authorize
-  #   return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+  # def self.top_tracks
+  #   RSpotify::User.top_tracks(params[:q])
   # end
 
+  private
+
   def user_params
-    params.permit(:username, :password, :password_confirmation)
+    params.permit(:full_name, :username, :email, :profile_pic, :spotify_url, :country, :href, :uri, :total_followers, :access_token, :refresh_token)
   end
 
 end

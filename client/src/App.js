@@ -5,27 +5,27 @@ import Home from './Home';
 import Header from './Header';
 
 function App() {
-  const [tracks, setTracks] = useState([]);
-  const [token, setToken] = useState(Cookies.get('spotifyAuthToken'));
+  const [user, setUser] = useState(null);
+  // const [tracks, setTracks] = useState([]);
 
-  console.log(Cookies.get('spotifyAuthToken'));
-  useEffect(() => {
-    fetch('/tracks')
-      .then((r) => r.json())
-      .then((data) => setTracks(data));
-  }, []);
-  console.log(tracks);
+  // console.log(Cookies.get('spotifyAuthToken'));
+  // useEffect(() => {
+  //   fetch('v1/login/index')
+  //     .then((r) => r.json())
+  //     .then((data) => setUser(data));
+  // }, []);
+  // console.log(tracks);
 
   return (
     <div className='App'>
-      <Header token={token} setToken={setToken} />
+      <Header user={user} setUser={setUser} />
       <BrowserRouter>
         <Switch>
           {/* <Route path='*'>
             <h1>Not Found!</h1>
           </Route> */}
           <Route exact path='/'>
-            <Home tracks={tracks} />
+            <Home />
           </Route>
         </Switch>
       </BrowserRouter>

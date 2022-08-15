@@ -1,5 +1,14 @@
 class SessionsController < ApplicationController
 
+  def index
+    render json: User.all, status: :ok
+  end
+
+  def show
+    user = User.find_by(id: session[:user_id])
+    render json: user, serializer: UserSerializer, status: :ok
+  end
+
   def create
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password])

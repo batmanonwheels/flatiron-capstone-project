@@ -3,7 +3,7 @@ import React from 'react';
 function Home() {
   return (
     <div>
-      <h2>Latest Tracks</h2>
+      <h2>Your Top Tracks</h2>
     </div>
   );
 }

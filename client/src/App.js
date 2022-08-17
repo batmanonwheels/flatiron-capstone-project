@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { Switch, Route } from 'react-router-dom';
 import Home from './Home';
+// import './App.css';
 import Header from './Header';
 
 function App() {
-  const [user, setUser] = useState(null);
-  // const [tracks, setTracks] = useState([]);
+  const [user, setUser] = useState(null),
+    [recentTracks, setRecentTracks] = useState({}),
+    [topTracks, setTopTracks] = useState({});
 
-  // console.log(Cookies.get('spotifyAuthToken'));
-  // useEffect(() => {
-  //   fetch('v1/login/index')
-  //     .then((r) => r.json())
-  //     .then((data) => setUser(data));
-  // }, []);
-  // console.log(tracks);
+  useEffect(() => {
+    fetch('/myaccount').then((r) => {
+      if (r.ok) {
+        r.json()
+          .then((data) => setUser(data))
+          .then(
+            fetch('/tracks/top').then((r) => {
+              if (r.ok) {
+                r.json().then((data) => setTopTracks(data));
+              }
+            })
+          )
+          .then(
+            fetch('/tracks/recent').then((r) => {
+              if (r.ok) {
+                r.json().then((data) => setRecentTracks(data));
+              }
+            })
+          );
+      }
+    });
+  }, []);
+
+  console.log(user);
+  console.log(topTracks);
+  console.log(recentTracks);
 
   return (
     <div className='App'>
       <Header user={user} setUser={setUser} />
-      <BrowserRouter>
-        <Switch>
-          {/* <Route path='*'>
-            <h1>Not Found!</h1>
-          </Route> */}
-          <Route exact path='/'>
-            <Home />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path='/'>
+          <Home recentTracks={recentTracks} setRecentTracks={setRecentTracks} />
+        </Route>
+      </Switch>
     </div>
   );
 }

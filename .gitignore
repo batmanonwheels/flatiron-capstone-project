@@ -32,3 +32,6 @@
 
 config/.spotify_key.rb
 client/src/keys/spotify_keys.js
+
+# Ignore application configuration
+/config/application.yml

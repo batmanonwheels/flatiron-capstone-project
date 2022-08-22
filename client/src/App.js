@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Tracks from './components/Home';
+import Tracks from './components/Tracks';
 import Header from './components/Header';
 import ReviewList from './components/ReviewList';
 import Profile from './components/Profile';

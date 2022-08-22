@@ -1,22 +1,25 @@
 class FavoritesController < ApplicationController
-  before_action :find_favorite, only: [:show, :destroy]
+  # before_action :find_favorite, only: [:show, :destroy]
 
-  def index
-    render :json Favorite.all, status: :ok
-  end
+  # def index
+  #   render :json Favorite.all, status: :ok
+  # end
 
-  def show
-    render :json @favorite, status: :ok
-  end
+  # def show
+  #   render :json @favorite, status: :ok
+  # end
 
   def create
-    favorite = Favorite.create!(favorite_params)
+    @track = Track.find_or_create_by(
+        name: params['track']['name'],
+        artist: params['track']['artists'][0]['name'],
+        album: params['track']['album']['name'],
+        image: params['track']['album']['images'][0]['url'],
+        preview: params['track']['preview_url'],
+        spotify_uri: params['track']['uri']
+        )
+    favorite = Favorite.create(user_id: params['user_id'], track_id: @track.id)
     render :json favorite, status: :created
-  end
-
-  def update
-    @favorite.update!(favorite_params)
-    render :json @favorite, status: :accepted
   end
 
   def destroy
@@ -30,7 +33,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find((params[:id]))
   end
 
-  def favorite_params
-    params.permit(:user, :track)
-  end
+  # def favorite_params
+  #   params.permit(:user, :track)
+  # end
 end

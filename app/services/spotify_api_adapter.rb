@@ -10,7 +10,7 @@ class SpotifyApiAdapter
       Authorization: "Bearer #{user.access_token}"
     }
     query_params = {
-      limit: 5,
+      limit: 12,
       time_range: "short_term"
     }
     url = "#{api_url}?#{query_params.to_query}"
@@ -30,7 +30,7 @@ class SpotifyApiAdapter
       Authorization: "Bearer #{user.access_token}"
     }
     query_params = {
-      limit: 5
+      limit: 48
     }
     # url = "#{api_url}?#{query_params.to_query}"
     # Parse and return only track items from response, grouped by date for d3
@@ -46,8 +46,6 @@ class SpotifyApiAdapter
     #   time_analysis: time_analysis
     # }
   end
-
-
   private
 
     def self.group_recent_tracks(tracks)

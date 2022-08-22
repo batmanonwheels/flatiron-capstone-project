@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   # before_action :refresh_token, only: []
+  before_action :find_user, only: [:top, :recent]
 
   def show
     user = User.find_by(username: session[:current_user_username])
-    render json: user, status: :ok
+    puts "Rendered user"
+    render json: user, serializer: UserSerializer, status: :ok
   end
 
   def create
@@ -38,9 +40,12 @@ class UsersController < ApplicationController
         country: user_params["country"],
         href: user_params["href"],
         uri: user_params["uri"],
-        total_followers: user_params["followers"]["total"])
+        total_followers: user_params["followers"]["total"]
+        )
 
       @user.update(
+        profile_pic: user_params["images"][0]["url"],
+        total_followers: user_params["followers"]["total"],
         access_token: auth_token,
         refresh_token: ref_token)
 
@@ -52,7 +57,7 @@ class UsersController < ApplicationController
 
   def update
     user = User.update!(user_params)
-    render json: user, status: :accepted
+    render json: user, serializer: UserSerializer, status: :accepted
   end
 
   private

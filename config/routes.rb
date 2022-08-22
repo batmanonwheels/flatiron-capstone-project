@@ -2,33 +2,22 @@ Rails.application.routes.draw do
 
   scope '/api' do
     # resources :tracks, only: [:index, :show, :create ]
-
-    resources :comments, only: [:index, :show, :create, :update, :destroy ]
-
+    resources :comments
     resources :likes, only: [:index, :show, :create, :destroy ]
-
-    resources :reviews, only: [:index, :show, :create, :update, :destroy ]
-
+    resources :reviews
     resources :favorites, only: [:index, :show, :create, :destroy ]
   end
 
   get '/api/v1/login', to: 'api/v1/login#spotify_auth'
 
+  get '/me', to: 'users#show'
   get '/auth/spotify/callback', to: 'users#create'
-  get '/api/myaccount', to: 'users#show'
+
+  delete '/logout', to: 'sessions#destroy'
 
   get "/api/tracks/top", to: "tracks#top"
   get "/api/tracks/recent", to: "tracks#recent"
+  post "/api/tracks", to: "tracks#create"
 
-  delete "api/logout", to: "sessions#destroy"
-
-
-  # namespace :api do
-  #   namespace :v1 do
-  #     get '/login', to: "login#index"
-  #     get '/auth', to: "auth#show"
-  #     get '/user', to: "users#create"
-  #   end
-  # end
 
 end

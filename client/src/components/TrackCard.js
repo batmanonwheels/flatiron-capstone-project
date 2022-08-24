@@ -7,6 +7,7 @@ import {
   Link,
   SimpleGrid,
   Box,
+  LinkOverlay,
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
@@ -22,6 +23,8 @@ const TrackCard = ({
   artist,
   track,
   preview,
+  albumType,
+  setRecentTracks,
 }) => {
   const [buttonText, setButtonText] = useState('Add To Favorites');
   const [buttonColor, setButtonColor] = useState('teal');
@@ -29,9 +32,9 @@ const TrackCard = ({
 
   const handleClick = (e) => {
     // e.preventDefault();
-    // handleFavorite(track);
-    // setButtonText('Added to Favorites');
-    // setButtonColor('');
+    handleFavorite(track);
+    setButtonText('Added to Favorites');
+    setButtonColor('');
     toast({
       title: `${title} - ${artist}`,
       description: 'Added to Favorites!',
@@ -41,14 +44,26 @@ const TrackCard = ({
       duration: 4500,
       isClosable: true,
     });
+    setRecentTracks((current) =>
+      current.filter((favTrack) => {
+        return favTrack.name !== track.name;
+      })
+    );
   };
 
   return (
     <Center>
       <GridItem w='100%' h='100%'>
         <div className='track'>
-          <LinkBox as='article' p='5' borderWidth='1px' rounded='md'>
-            <Link href={spotifyLink}>
+          <LinkBox
+            as='article'
+            p='5'
+            borderWidth='1.5px'
+            rounded='md'
+            // minH={'500px'}
+            _hover={{ transform: 'scale(1.02)' }}
+          >
+            <Link href={spotifyLink} zIndex='4'>
               <Image
                 src={coverArt}
                 boxSize='100%'
@@ -65,16 +80,20 @@ const TrackCard = ({
             >
               <Box width='auto'>
                 <h3 className='track-title'>{title}</h3>
-                <h4 className='track-album'>{album}</h4>
+                {albumType === 'album' ? (
+                  <h4 className='track-album'>{album}</h4>
+                ) : // <h4 className='track-album'>{album} (Single)</h4>
+                null}
                 <h4 className='track-artist'>{artist}</h4>
               </Box>
               <Box width='auto'>
                 <Button
-                  loadingText='See you soon!'
+                  // loadingText='See you soon!'
                   colorScheme='teal'
                   onClick={(e) => handleClick(e, track)}
-                  className='track-favorite-button'
+                  className='track-button'
                   marginBottom='7px'
+                  zIndex='5'
                   sx={{ position: 'absolute', bottom: '0', right: '0' }}
                 >
                   {buttonText}
@@ -87,6 +106,7 @@ const TrackCard = ({
               height='45px'
               controls={true}
               width='100%'
+              zIndex='5'
             />
           </LinkBox>
           {/* <button className='track-create-review-button'>Review</button> */}

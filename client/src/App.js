@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Tracks from './components/Tracks';
-import Header from './components/Header';
+import SideBar from './components/SideBar';
 import ReviewList from './components/ReviewList';
 import Profile from './components/Profile';
 import { Grid, GridItem, Text, Heading, Box, useToast } from '@chakra-ui/react';
@@ -34,19 +34,9 @@ function App() {
           )
           .catch((err) => {
             console.log(err.message);
-            toast({
-              title: 'Error Logging In',
-              description: 'Please try again later',
-              position: 'bottom-right',
-              variant: 'subtle',
-              status: 'success',
-              duration: 1000,
-              isClosable: true,
-            });
           });
       }
     });
-    // setIsLoading((prev) => (prev = true));
     // eslint-disable-next-line
   }, []);
 
@@ -56,40 +46,42 @@ function App() {
       method: 'DELETE',
     })
       .then((r) => r.json())
-      .then((data) => setUser(null));
+      .then(() => setUser(null));
+    localStorage.removeItem('userInfo');
   };
 
   console.log(user);
 
   return (
     <BrowserRouter>
-      <div className='App'>
+      <div className='App' style={{ maxW: '100vh' }}>
         <Grid
           templateAreas={`"nav main"
                   "nav main"
                   "nav footer"`}
           gridTemplateRows={'100px 1fr 80px'}
-          gridTemplateColumns={'140px 1fr'}
+          gridTemplateColumns={'125px 1fr'}
+          // maxW={'100vh'}
           h='100%'
-          gap='4'
+          gap='2'
           color='black'
           fontWeight='bold'
         >
           <GridItem
             pl='2'
             rowStart={1}
-            h='100%'
-            // pos='sticky'
+            h='95vh'
+            pos='sticky'
             // bottom={0}
-            // top={0}
+            top={0}
             // h='auto'
             area={'nav'}
             paddingTop={3}
             bgGradient='linear(to-t, gray.200, white)'
-            zIndex='1'
+            zIndex='5'
           >
             <Box>
-              <Header
+              <SideBar
                 // pos='sticky'
                 user={user}
                 setUser={setUser}
@@ -103,6 +95,11 @@ function App() {
                 <Route
                   exact
                   path='/browse-reviews'
+                  element={<ReviewList user={user} />}
+                />
+                <Route
+                  exact
+                  path='/review-form'
                   element={<ReviewList user={user} />}
                 />
                 {/* <Route
@@ -127,7 +124,7 @@ function App() {
                 />
               </Routes>
             ) : (
-              <h1>Loading Essential Data...</h1>
+              <Heading size='xl'>Loading Essential Data...</Heading>
             )}
           </GridItem>
           <GridItem
@@ -139,8 +136,8 @@ function App() {
             bottom={0}
             h='100%'
             area={'footer'}
-            zIndex='2'
-            bgGradient='linear(to-tr, gray.300, white)'
+            zIndex='5'
+            bgGradient='linear(to-tr, gray.300,  white)'
           >
             <Heading size='4xl'>Synesthesium</Heading>
           </GridItem>

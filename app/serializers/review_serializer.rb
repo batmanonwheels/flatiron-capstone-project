@@ -1,5 +1,5 @@
 class ReviewSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :rating
-  has_one :track
-  has_one :user
+  belongs_to :track
+  belongs_to :user
 end

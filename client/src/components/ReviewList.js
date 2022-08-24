@@ -1,74 +1,47 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReviewCard from './ReviewCard';
+import { Grid, GridItem, Heading, Progress } from '@chakra-ui/react';
 
-function Reviews({
-  user,
-  name,
-  // topTracks,
-  // setTopTracks,
-  // recentTracks,
-  // setRecentTracks,
-}) {
-  const [reviews, setReviews] = useState(null);
-
-  // useEffect(() => {
-  //   fetch('/api/tracks/top').then((r) => {
-  //     if (r.ok) {
-  //       r.json()
-  //         .then((data) => setTopTracks(data))
-  //         .catch((err) => {
-  //           console.log(err.message);
-  //         });
-  //     }
-  //   });
-  //   fetch('/api/tracks/recent').then((r) => {
-  //     if (r.ok) {
-  //       r.json()
-  //         .then((data) => setRecentTracks(data))
-  //         .catch((err) => {
-  //           console.log(err.message);
-  //         });
-  //     }
-  //   });
-  // }, []);
-
-  console.log(user);
+function TrackList({ user, reviews, setRecentreviews }) {
+  const handleFavorite = (track) => {
+    // console.log('Creating/Finding track in DB');
+    // const favoriteObj = {
+    //   track: track,
+    //   user_id: user.id,
+    // };
+    // console.log(`Tracks name is ${track.title}`);
+    // fetch('/api/favorites', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(favoriteObj),
+    // }).then((r) => r.json());
+  };
   return (
-    <div>
-      <div className='recently-played'>
-        <Grid
-          templateAreas={`"heading "
-                  "body"`}
-          gridTemplateRows={'35px 1fr'}
-          // gridTemplateColumns={'100px 1fr'}
-          // h='200px'
-          // gap='1'
-          color='blackAlpha.700'
-          fontWeight='bold'
-        >
-          <GridItem
-            pl='2'
-            area={'heading'}
-            // pos='sticky'
-            // top={0}
-            bg='white'
-            zIndex={2}
-          >
-            <Heading size='xl'>Recent Reviews</Heading>
-          </GridItem>
-          {/* <h2>{user.full_name?.split(' ')[0]}'s Recently Played Tracks</h2> */}
-          <GridItem pl='2' area={'body'} overflow-y='auto'>
-            {/* <TrackList tracks={recentTracks} user={user} /> */}
-          </GridItem>
-        </Grid>
-      </div>
-      {/* <div className='most-played'>
-        <h2>{user.full_name.split(' ')[0]}'s Most Played Tracks</h2>
-        <TrackList tracks={recentTracks} />
-      </div> */}
+    <div className='review-list'>
+      <Grid templateColumns='repeat(3, 1fr)' gap={3} padding={2}>
+        {reviews ? (
+          reviews.items.map((item) => (
+            <ReviewCard
+              key={item.id}
+              track={item.track}
+              spotifyLink={item.track.uri}
+              coverArt={item.track.album.images[1].url}
+              title={item.track.name}
+              album={item.track.album.name}
+              albumType={item.track.album.album_type}
+              preview={item.track.preview_url}
+              artist={item.track.artists[0].name}
+              handleFavorite={handleFavorite}
+            />
+          ))
+        ) : (
+          <Progress size='md' w='145vh' colorScheme='teal' isIndeterminate />
+        )}
+      </Grid>
     </div>
   );
 }
 
-export default Reviews;
+export default TrackList;

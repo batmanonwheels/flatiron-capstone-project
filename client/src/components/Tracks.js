@@ -27,8 +27,8 @@ function Tracks({ user, name }) {
     });
   }, []);
 
-  console.log(topTracks);
-  console.log(recentTracks);
+  // console.log(topTracks);
+  // console.log(recentTracks);
 
   // const tracks = {
   //   recentTracks,
@@ -36,7 +36,7 @@ function Tracks({ user, name }) {
   // // };
 
   // console.log(topTracks.items[0].album.name);
-  console.log(user);
+  // console.log(user);
   return (
     <div>
       <div className='recently-played'>

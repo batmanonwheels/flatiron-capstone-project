@@ -2,7 +2,7 @@ class Track < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :users, through: :reviews
-  has_many :users, through: :favorites
+  has_one :user, through: :favorites
 
   validates :spotify_uri, uniqueness: true
   validates :name, presence: true

@@ -9,6 +9,7 @@ import {
   Box,
   LinkOverlay,
 } from '@chakra-ui/react';
+import { StarIcon } from '@chakra-ui/icons';
 import { useToast } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
@@ -26,7 +27,7 @@ const TrackCard = ({
   albumType,
   setRecentTracks,
 }) => {
-  const [buttonText, setButtonText] = useState('Add To Favorites');
+  const [buttonText, setButtonText] = useState('Add To Favorites  ');
   const [buttonColor, setButtonColor] = useState('teal');
   const toast = useToast();
 
@@ -60,7 +61,6 @@ const TrackCard = ({
             p='5'
             borderWidth='1.5px'
             rounded='md'
-            // minH={'500px'}
             _hover={{ transform: 'scale(1.02)' }}
           >
             <Link href={spotifyLink} zIndex='4'>
@@ -96,7 +96,8 @@ const TrackCard = ({
                   zIndex='5'
                   sx={{ position: 'absolute', bottom: '0', right: '0' }}
                 >
-                  {buttonText}
+                  <StarIcon w={10} />
+                  Add To Favorites
                 </Button>
               </Box>
             </SimpleGrid>
@@ -109,7 +110,6 @@ const TrackCard = ({
               zIndex='5'
             />
           </LinkBox>
-          {/* <button className='track-create-review-button'>Review</button> */}
         </div>
       </GridItem>
     </Center>

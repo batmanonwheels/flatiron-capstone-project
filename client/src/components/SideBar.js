@@ -20,12 +20,22 @@ function Header({ user, setUser, handleLogout }) {
             />
           </Link>
           <Link to='/'>
-            <Button marginTop={3} marginBottom={1} colorScheme='teal'>
+            <Button
+              marginTop={3}
+              marginBottom={1}
+              colorScheme='teal'
+              minW={'11vh'}
+            >
               Tracks
             </Button>
           </Link>
           <Link to='/browse-reviews'>
-            <Button marginTop={3} marginBottom={1} colorScheme='teal'>
+            <Button
+              marginTop={3}
+              marginBottom={1}
+              colorScheme='teal'
+              minW={'11vh'}
+            >
               Reviews
             </Button>
           </Link>
@@ -35,6 +45,8 @@ function Header({ user, setUser, handleLogout }) {
             loadingText='See you soon!'
             colorScheme='teal'
             onClick={(e) => handleLogout(e)}
+            variant='outline'
+            minW={'11vh'}
           >
             Logout
           </Button>

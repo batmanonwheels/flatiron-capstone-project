@@ -25,16 +25,13 @@ import {
   // Input,
 } from '@chakra-ui/react';
 import { useToast, useDisclosure } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ReviewForm from './ReviewForm';
+import UserContext from '../context/user';
 
-const FavoriteCard = ({
-  user,
-  track,
-  handleReviewClick,
-  handleDeleteClick,
-}) => {
+const FavoriteCard = ({ track, handleReviewClick, handleDeleteClick }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user, setUser } = useContext(UserContext);
   // const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -46,13 +43,11 @@ const FavoriteCard = ({
         sx={{ borderRadius: '6px', padding: '2px' }}
         _hover={{
           transform: 'scale(1.05)',
-          // borderRadius: '0 3px 3px 0',
         }}
       >
         <Link href={track.spotify_uri}>
           <Image
             src={track.image}
-            // boxSize='100%'
             fallbackSrc='https://giphy.com/embed/3oEjI6SIIHBdRxXI40'
             alt={track.title}
             position='relative'
@@ -60,25 +55,14 @@ const FavoriteCard = ({
         </Link>
         <Box width='auto'>
           <Button
-            // loadingText='See you soon!'
             colorScheme='teal'
             onClick={(e) => handleDeleteClick(e, track)}
             className='track-button'
             marginBottom='7px'
-            // zIndex={1000}
             sx={{ position: 'absolute', top: '0', right: '0' }}
           >
             X
           </Button>
-          {/* <LinkOverlay
-            to={{
-              pathname: `/review-form`,
-              state: {
-                track: track,
-                user: user,
-              },
-            }}
-          > */}
           <Button
             colorScheme='teal'
             className='track-button'
@@ -92,7 +76,6 @@ const FavoriteCard = ({
           >
             Create Review
           </Button>
-          {/* </LinkOverlay> */}
         </Box>
         <SimpleGrid columns={1} marginTop='10px' marginBottom='10px'>
           <Box width='100%'>

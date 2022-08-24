@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   Box,
   Grid,
@@ -19,11 +19,14 @@ import {
 import { useToast } from '@chakra-ui/react';
 import FavoriteCard from './FavoriteCard';
 import ReviewCard from './ReviewCard';
+import UserContext from '../context/user';
 
-const Profile = ({ user }) => {
+const Profile = () => {
   const toast = useToast();
   // const { isOpen, onToggle } = useDisclosure();
-  const handleReviewClick = (e) => {
+  const { user, setUser } = useContext(UserContext);
+
+  const handleReviewFavClick = (e) => {
     // e.preventDefault();
     // handleFavorite(track);
     // setButtonText('Added to Favorites');
@@ -46,7 +49,7 @@ const Profile = ({ user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleDeleteClick = (e) => {
+  const handleDeleteFavClick = (e) => {
     // e.preventDefault();
     // handleFavorite(track);
     // setButtonText('Added to Favorites');
@@ -62,7 +65,11 @@ const Profile = ({ user }) => {
     });
   };
 
-  console.log(user);
+  const handleEditReviewClick = () => {};
+
+  const handleDeleteReviewClick = () => {};
+
+  // console.log(reviews);
   return (
     <div>
       <div className='recently-played'>
@@ -117,8 +124,8 @@ const Profile = ({ user }) => {
                       user={user}
                       track={track}
                       // onToggle={onToggle}
-                      handleDeleteClick={handleDeleteClick}
-                      handleReviewClick={handleReviewClick}
+                      handleDeleteClick={handleDeleteFavClick}
+                      handleReviewClick={handleReviewFavClick}
                     />
                   </Box>
                 ))}
@@ -131,18 +138,18 @@ const Profile = ({ user }) => {
                 maxW='150vh'
                 height='50vh'
               >
-                {user.reviews.map((track) => (
+                {/* {user.reviews.map((review) => (
                   <Box>
                     <ReviewCard
-                      key={track.id}
+                      key={review.id}
                       user={user}
-                      track={track}
+                      review={review}
                       // onToggle={onToggle}
-                      handleDeleteClick={handleDeleteClick}
-                      handleReviewClick={handleReviewClick}
+                      handleEditClick={handleEditReviewClick}
+                      handlDeleteClick={handleDeleteReviewClick}
                     />
                   </Box>
-                ))}
+                ))} */}
               </HStack>
             </Box>
           </GridItem>

@@ -1,44 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Tracks from './components/Tracks';
 import SideBar from './components/SideBar';
-import ReviewList from './components/ReviewList';
+import Reviews from './components/Reviews';
 import Profile from './components/Profile';
-import { Grid, GridItem, Text, Heading, Box, useToast } from '@chakra-ui/react';
+import {
+  Grid,
+  GridItem,
+  Text,
+  Heading,
+  Box,
+  useToast,
+  Progress,
+} from '@chakra-ui/react';
 import { theme } from '@chakra-ui/react';
+// import UserContext from './context/user';
+import UserContext from './context/user';
+import { FasterOne } from '@fontsource/faster-one';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const toast = useToast();
+  // const [user, setUser] = useState(null);
+  // const toast = useToast();
+  const { user, setUser } = useContext(UserContext);
   // [recentTracks, setRecentTracks] = useState(null),
   // [topTracks, setTopTracks] = useState(null);
-  useEffect(() => {
-    fetch('/me').then((r) => {
-      if (r.ok) {
-        r.json()
-          .then((data) => setUser(data))
-          .then(console.log(user))
-          .then(() =>
-            setTimeout(
-              toast({
-                title: `Hey ${user.full_name.split(' ')[0]}!`,
-                description: 'Welcome to Synesthesium!',
-                position: 'bottom-right',
-                variant: 'subtle',
-                status: 'success',
-                duration: 4500,
-                isClosable: true,
-              }),
-              2000
-            )
-          )
-          .catch((err) => {
-            console.log(err.message);
-          });
-      }
-    });
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   fetch('/me').then((r) => {
+  //     if (r.ok) {
+  //       r.json()
+  //         .then((data) => setUser(data))
+  //         .then(console.log(user))
+  //         .then(() =>
+  //           setTimeout(
+  //             toast({
+  //               title: `Hey ${user.full_name.split(' ')[0]}!`,
+  //               description: 'Welcome to Synesthesium!',
+  //               position: 'bottom-right',
+  //               variant: 'subtle',
+  //               status: 'success',
+  //               duration: 4500,
+  //               isClosable: true,
+  //             }),
+  //             2000
+  //           )
+  //         )
+  //         .catch((err) => {
+  //           console.log(err.message);
+  //         });
+  //     }
+  //   });
+  //   // eslint-disable-next-line
+  // }, []);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -95,18 +107,13 @@ function App() {
                 <Route
                   exact
                   path='/browse-reviews'
-                  element={<ReviewList user={user} />}
+                  element={<Reviews me={user} />}
                 />
                 <Route
                   exact
-                  path='/review-form'
-                  element={<ReviewList user={user} />}
+                  path='/review/:id'
+                  element={<Reviews me={user} />}
                 />
-                {/* <Route
-                  exact
-                  path='/browse-tracks'
-                  element={<Tracks user={user} />}
-                /> */}
                 <Route path='/me' element={<Profile user={user} />} />
                 <Route
                   exact
@@ -124,7 +131,15 @@ function App() {
                 />
               </Routes>
             ) : (
-              <Heading size='xl'>Loading Essential Data...</Heading>
+              <>
+                <Heading size='xl'>Loading Essential Data...</Heading>
+                <Progress
+                  size='md'
+                  w='145vh'
+                  colorScheme='teal'
+                  isIndeterminate
+                />
+              </>
             )}
           </GridItem>
           <GridItem
@@ -139,7 +154,13 @@ function App() {
             zIndex='5'
             bgGradient='linear(to-tr, gray.300,  white)'
           >
-            <Heading size='4xl'>Synesthesium</Heading>
+            <Heading
+              fontSize='90px'
+              size={'4xl'}
+              sx={{ fontFamily: 'Faster One', color: 'teal' }}
+            >
+              Synesthesium
+            </Heading>
           </GridItem>
         </Grid>
       </div>

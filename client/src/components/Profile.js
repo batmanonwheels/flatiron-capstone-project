@@ -6,25 +6,25 @@ import {
   GridItem,
   Heading,
   HStack,
-  // Collapse,
-  // SliderTrack,
-  // SliderMark,
-  // Slider,
-  // SliderThumb,
-  // SliderFilledTrack,
-  // Textarea,
-  // Input,
+  Progress,
 } from '@chakra-ui/react';
 
 import { useToast } from '@chakra-ui/react';
 import FavoriteCard from './FavoriteCard';
-import ReviewCard from './ReviewCard';
 import UserContext from '../context/user';
+import ProfileCommentCard from './ProfileCommentCard';
+import ProfileReviewCard from './ProfileReviewCard';
 
-const Profile = () => {
+const useForceUpdate = () => {
+  const set = useState(false)[1];
+  return () => set((s) => !s);
+};
+
+const Profile = ({}) => {
   const toast = useToast();
-  // const { isOpen, onToggle } = useDisclosure();
   const { user, setUser } = useContext(UserContext);
+
+  const forceUpdate = useForceUpdate();
 
   const handleReviewFavClick = (e) => {
     // e.preventDefault();
@@ -32,8 +32,7 @@ const Profile = () => {
     // setButtonText('Added to Favorites');
     // setButtonColor('');
     toast({
-      title: `Here we go!`,
-      description: 'Writing Review!',
+      title: `Writing Review!`,
       position: 'bottom-right',
       variant: 'subtle',
       status: 'success',
@@ -41,187 +40,116 @@ const Profile = () => {
       isClosable: true,
     });
   };
-  const defaultReviewData = { title: '', description: '', rating: 0 };
-
-  const [formData, setFormData] = useState(defaultReviewData);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleDeleteFavClick = (e) => {
-    // e.preventDefault();
-    // handleFavorite(track);
-    // setButtonText('Added to Favorites');
-    // setButtonColor('');
-    toast({
-      title: `Here we go!`,
-      description: 'Writing Review!',
-      position: 'bottom-right',
-      variant: 'subtle',
-      status: 'success',
-      duration: 4500,
-      isClosable: true,
-    });
-  };
-
-  const handleEditReviewClick = () => {};
-
-  const handleDeleteReviewClick = () => {};
-
-  // console.log(reviews);
   return (
-    <div>
-      <div className='recently-played'>
-        <Grid
-          templateAreas={`"heading"
+    <div className='recently-played'>
+      <Grid
+        templateAreas={`"heading"
                   "body"
                   "form"`}
-          gridTemplateRows={'35px 1fr'}
-          // gridTemplateColumns={'100px 1fr'}
-          // h='200px'
-          // gap='1'
-          maxW='100vh'
-          color='blackAlpha.700'
-          fontWeight='bold'
+        gridTemplateRows={'35px 1fr'}
+        // gridTemplateColumns={'100px 1fr'}
+        // h='200px'
+        // gap='1'
+        maxW='100vh'
+        color='blackAlpha.700'
+        fontWeight='bold'
+      >
+        <GridItem
+          pl='2'
+          area={'heading'}
+          // pos='sticky'
+          // top={0}
+          bg='white'
+          zIndex={5}
+          pb='10'
         >
-          <GridItem
-            pl='2'
-            area={'heading'}
-            // pos='sticky'
-            // top={0}
-            bg='white'
-            zIndex={5}
-            pb='10'
-          >
-            <Heading size='xl'>{user.full_name}'s</Heading>
-          </GridItem>
-          {/* <h2>{user.full_name?.split(' ')[0]}'s Recently Played Tracks</h2> */}
-          <GridItem
-            pl='2'
-            area={'body'}
-            overflow-y='auto'
-            zIndex={3}
-            // border='1px solid'
-          >
-            <Box>
-              <Heading size='2xl'>Favorite Tracks</Heading>
-              {/* <Heading size='xl'>
+          <Heading size='xl'>{user.full_name}'s</Heading>
+        </GridItem>
+        {/* <h2>{user.full_name?.split(' ')[0]}'s Recently Played Tracks</h2> */}
+        <GridItem
+          pl='2'
+          area={'body'}
+          overflow-y='auto'
+          zIndex={3}
+          // border='1px solid'
+        >
+          <Box>
+            <Heading size='2xl'>Favorite Tracks</Heading>
+            {/* <Heading size='xl'>
                 Hover over a track to remove it from your favorites or review
                 it!
               </Heading> */}
-              <HStack
-                spacing='24px'
-                mt='10px'
-                overflowX='scroll'
-                maxW='150vh'
-                height='50vh'
-              >
-                {user.tracks.map((track) => (
-                  <Box>
-                    <FavoriteCard
-                      key={track.id}
-                      user={user}
-                      track={track}
-                      // onToggle={onToggle}
-                      handleDeleteClick={handleDeleteFavClick}
-                      handleReviewClick={handleReviewFavClick}
-                    />
-                  </Box>
-                ))}
-              </HStack>
-              <Heading size='2xl'>Reviews</Heading>
-              <HStack
-                spacing='24px'
-                mt='10px'
-                overflowX='scroll'
-                maxW='150vh'
-                height='50vh'
-              >
-                {/* {user.reviews.map((review) => (
-                  <Box>
-                    <ReviewCard
-                      key={review.id}
-                      user={user}
-                      review={review}
-                      // onToggle={onToggle}
-                      handleEditClick={handleEditReviewClick}
-                      handlDeleteClick={handleDeleteReviewClick}
-                    />
-                  </Box>
-                ))} */}
-              </HStack>
-            </Box>
-          </GridItem>
-          <GridItem
-            pl='2'
-            area={'form'}
-            // overflow-y='auto'
-            zIndex={3}
-            // rowStart={10}
-            // border='1px solid'
-          >
-            {/* <Collapse in={isOpen} animateOpacity>
-              <Box
-                border='1px solid'
-                p='30px'
-                color='blackAlpha.900'
-                mt='10'
-                maxW={'100vh'}
-                bg='teal.500'
-                rounded='s'
-                shadow='md'
-              >
-                <Input
-                  placeholder='Title'
-                  color={'black'}
-                  name='title'
-                  value={formData.title}
-                  bg='teal.100'
-                  onChange={handleChange}
+            <HStack
+              spacing='24px'
+              mt='10px'
+              overflowX='scroll'
+              maxW='161vh'
+              height='40vh'
+              pl={'5px'}
+              pr={'5px'}
+            >
+              {user.tracks.map((track) => (
+                <Box>
+                  <FavoriteCard
+                    key={track.id}
+                    user={user}
+                    track={track}
+                    // onToggle={onToggle}
+                    // handleDeleteClick={handleDeleteFavClick}
+                    handleReviewClick={handleReviewFavClick}
+                    forceUpdate={forceUpdate}
+                  />
+                </Box>
+              ))}
+            </HStack>
+            <Heading size='2xl'>Comments</Heading>
+            <Grid
+              templateColumns='repeat(4, 1fr)'
+              templateRows={'repeat(1, 1fr)'}
+              gap={3}
+              padding={2}
+              height={'12vh'}
+              overflowX='scroll'
+            >
+              {user.comments ? (
+                user.comments.map((comment) => (
+                  <ProfileCommentCard comment={comment} />
+                ))
+              ) : (
+                <Progress
+                  size='md'
+                  w='145vh'
+                  colorScheme='teal'
+                  isIndeterminate
                 />
-                <Textarea
-                  bg='teal.100'
-                  placeholder='Review'
-                  m='10px'
-                  ml='0'
-                  name='description'
-                  value={formData.description}
-                  onChange={handleChange}
+              )}
+            </Grid>
+            <Heading size='2xl'>Reviews</Heading>
+            <Grid
+              templateColumns='repeat(3, 1fr)'
+              templateRows={'repeat(2, 1fr)'}
+              gap={3}
+              padding={2}
+              height={'35vh'}
+              overflowY='scroll'
+            >
+              {user.reviews ? (
+                user.reviews.map((review) => (
+                  <ProfileReviewCard review={review} />
+                ))
+              ) : (
+                <Progress
+                  size='md'
+                  w='145vh'
+                  colorScheme='teal'
+                  isIndeterminate
                 />
-                <Heading size='l' mt='4' ml='-5'>
-                  Rating
-                </Heading>
-                <Slider
-                  name='rating'
-                  min={0}
-                  max={10}
-                  step={0.5}
-                  value={formData.rating}
-                  onChangeEnd={(e) => setFormData(e)}
-                >
-                  <SliderMark
-                    value={formData.rating}
-                    textAlign='center'
-                    borderRadius={10}
-                    color='white'
-                    mt='3.5'
-                    ml='-5'
-                    w='10'
-                  >
-                    {formData.rating}
-                  </SliderMark>
-                  <SliderTrack bg='white'>
-                    <Box position='relative' right={10} />
-                    <SliderFilledTrack bg='teal.100' />
-                  </SliderTrack>
-                  <SliderThumb boxSize={4} />
-                </Slider>
-              </Box>
-            </Collapse> */}
-          </GridItem>
-        </Grid>
-      </div>
+              )}
+            </Grid>
+          </Box>
+        </GridItem>
+        <GridItem pl='2' area={'form'} zIndex={3}></GridItem>
+      </Grid>
     </div>
   );
 };

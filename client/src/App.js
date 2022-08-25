@@ -4,6 +4,7 @@ import Tracks from './components/Tracks';
 import SideBar from './components/SideBar';
 import Reviews from './components/Reviews';
 import Profile from './components/Profile';
+import Albums from './components/Albums';
 import {
   Grid,
   GridItem,
@@ -19,38 +20,7 @@ import UserContext from './context/user';
 import { FasterOne } from '@fontsource/faster-one';
 
 function App() {
-  // const [user, setUser] = useState(null);
-  // const toast = useToast();
   const { user, setUser } = useContext(UserContext);
-  // [recentTracks, setRecentTracks] = useState(null),
-  // [topTracks, setTopTracks] = useState(null);
-  // useEffect(() => {
-  //   fetch('/me').then((r) => {
-  //     if (r.ok) {
-  //       r.json()
-  //         .then((data) => setUser(data))
-  //         .then(console.log(user))
-  //         .then(() =>
-  //           setTimeout(
-  //             toast({
-  //               title: `Hey ${user.full_name.split(' ')[0]}!`,
-  //               description: 'Welcome to Synesthesium!',
-  //               position: 'bottom-right',
-  //               variant: 'subtle',
-  //               status: 'success',
-  //               duration: 4500,
-  //               isClosable: true,
-  //             }),
-  //             2000
-  //           )
-  //         )
-  //         .catch((err) => {
-  //           console.log(err.message);
-  //         });
-  //     }
-  //   });
-  //   // eslint-disable-next-line
-  // }, []);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -109,11 +79,6 @@ function App() {
                   path='/browse-reviews'
                   element={<Reviews me={user} />}
                 />
-                <Route
-                  exact
-                  path='/review/:id'
-                  element={<Reviews me={user} />}
-                />
                 <Route path='/me' element={<Profile user={user} />} />
                 <Route
                   exact
@@ -128,6 +93,11 @@ function App() {
                       // setTopTracks={setTopTracks}
                     />
                   }
+                />
+                <Route
+                  exact
+                  path='/browse-albums'
+                  element={<Albums user={user} name={user.full_name} />}
                 />
               </Routes>
             ) : (
@@ -145,7 +115,7 @@ function App() {
           <GridItem
             pl='2'
             colStart={1}
-            rowStart={0}
+            rowStart={10}
             bg='gray.200'
             pos='sticky'
             bottom={0}
@@ -155,11 +125,16 @@ function App() {
             bgGradient='linear(to-tr, gray.300,  white)'
           >
             <Heading
-              fontSize='90px'
+              fontSize='93px'
               size={'4xl'}
-              sx={{ fontFamily: 'Faster One', color: 'teal' }}
+              bgClip='text'
+              bgGradient='linear(to-r,teal.400, pink.300)'
+              zIndex='6'
+              sx={{
+                fontFamily: 'Faster One',
+              }}
             >
-              Synesthesium
+              Synesthesia
             </Heading>
           </GridItem>
         </Grid>

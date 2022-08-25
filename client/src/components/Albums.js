@@ -1,32 +1,25 @@
+import React, { useEffect, useState, useContext } from 'react';
+import UserContext from '../context/user';
 import { Grid, GridItem, Heading } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import TrackList from './TrackList';
+import AlbumList from './AlbumList';
 
-function Tracks({ user, name, trigger }) {
-  const [recentTracks, setRecentTracks] = useState(null);
+const Albums = () => {
+  const { user, setUser } = useContext(UserContext);
+  const [albums, setAlbums] = useState(null);
 
   useEffect(() => {
-    fetch('/api/tracks/recent').then((r) => {
+    fetch('/api/albums/saved').then((r) => {
       if (r.ok) {
         r.json()
-          .then((data) => setRecentTracks(data))
+          .then((data) => setAlbums(data))
           .catch((err) => {
             console.log(err.message);
           });
       }
     });
-  }, [trigger]);
+  }, []);
 
-  // console.log(topTracks);
-  // console.log(recentTracks);
-
-  // const tracks = {
-  //   recentTracks,
-  //   topTracks,
-  // // };
-
-  // console.log(topTracks.items[0].album.name);
-  // console.log(user);
+  console.log(albums);
   return (
     <div className='recently-played'>
       <Grid
@@ -49,20 +42,16 @@ function Tracks({ user, name, trigger }) {
           zIndex={998}
         >
           <Heading size='xl'>
-            {user.full_name?.split(' ')[0]}'s Recently Played Tracks
+            {user.full_name?.split(' ')[0]}'s Recently Saved Albums
           </Heading>
         </GridItem>
         {/* <h2>{user.full_name?.split(' ')[0]}'s Recently Played Tracks</h2> */}
         <GridItem pl='2' area={'body'} overflow-y='auto'>
-          <TrackList
-            tracks={recentTracks}
-            setTracks={setRecentTracks}
-            user={user}
-          />
+          <AlbumList user={user} setAlbums={setAlbums} albums={albums} />
         </GridItem>
       </Grid>
     </div>
   );
-}
+};
 
-export default Tracks;
+export default Albums;

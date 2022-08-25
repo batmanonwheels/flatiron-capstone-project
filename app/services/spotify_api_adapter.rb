@@ -46,6 +46,34 @@ class SpotifyApiAdapter
     #   time_analysis: time_analysis
     # }
   end
+
+  def self.get_user_saved_albums(user)
+     # Update user's refresh token if necessary
+     user.refresh_auth_token
+
+     # Construct and send API call to get user's 50 most recently played tracks
+     api_url = "https://api.spotify.com/v1/me/albums"
+     header = {
+       Authorization: "Bearer #{user.access_token}"
+     }
+     query_params = {
+       limit: 48
+     }
+     # url = "#{api_url}?#{query_params.to_query}"
+     # Parse and return only track items from response, grouped by date for d3
+     recent_tracks_response = Faraday.get("#{api_url}?#{query_params.to_query}", {}, {Authorization: "Bearer #{user.access_token}"})
+
+     recent_tracks_body = JSON.parse(recent_tracks_response.body)
+
+     # recent_tracks = group_recent_tracks(recent_tracks_params["items"])
+     # time_analysis = recent_track_time_analysis(response["items"])
+
+     # {
+     #   recent_tracks: recent_tracks,
+     #   time_analysis: time_analysis
+     # }
+
+  end
   private
 
     def self.group_recent_tracks(tracks)

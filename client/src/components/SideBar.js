@@ -13,10 +13,13 @@ function Header({ user, setUser, handleLogout }) {
           <Link to='/me'>
             <Avatar
               size='xl'
+              minW={'5vw'}
               href={user.uri}
               name={user.full_name}
               src={user.profile_pic}
               marginTop={3}
+              height={''}
+              minH={'8vh'}
             />
           </Link>
           <Link to='/'>
@@ -24,9 +27,19 @@ function Header({ user, setUser, handleLogout }) {
               marginTop={3}
               marginBottom={1}
               colorScheme='teal'
-              minW={'11vh'}
+              minW={'10vh'}
             >
               Tracks
+            </Button>
+          </Link>
+          <Link to='/browse-albums'>
+            <Button
+              marginTop={3}
+              marginBottom={1}
+              colorScheme='teal'
+              minW={'10vh'}
+            >
+              Albums
             </Button>
           </Link>
           <Link to='/browse-reviews'>
@@ -34,7 +47,7 @@ function Header({ user, setUser, handleLogout }) {
               marginTop={3}
               marginBottom={1}
               colorScheme='teal'
-              minW={'11vh'}
+              minW={'10vh'}
             >
               Reviews
             </Button>
@@ -46,7 +59,7 @@ function Header({ user, setUser, handleLogout }) {
             colorScheme='teal'
             onClick={(e) => handleLogout(e)}
             variant='outline'
-            minW={'11vh'}
+            minW={'10vh'}
           >
             Logout
           </Button>

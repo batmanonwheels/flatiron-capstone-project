@@ -1,5 +1,5 @@
 class FavoritesController < ApplicationController
-  # before_action :find_favorite, only: [:show, :destroy]
+  before_action :find_favorite, only: [:show, :destroy]
 
   def index
     render json: Favorite.all, status: :ok

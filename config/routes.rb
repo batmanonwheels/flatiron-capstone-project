@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get '/api/v1/login', to: 'api/v1/login#spotify_auth'
 
-  get '/me', to: 'users#show'
+  get '/api/me', to: 'users#show'
   get '/auth/spotify/callback', to: 'users#create'
 
   delete '/logout', to: 'sessions#destroy'
@@ -19,5 +19,7 @@ Rails.application.routes.draw do
   get "/api/tracks/recent", to: "tracks#recent"
   post "/api/tracks", to: "tracks#create"
 
+  get "/api/albums/saved", to: "albums#saved"
+  post "/api/albums/savetrack", to: "albums#create"
 
 end

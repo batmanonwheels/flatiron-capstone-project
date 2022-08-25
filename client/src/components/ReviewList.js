@@ -35,15 +35,16 @@ function ReviewList({ user }) {
   return (
     <div className='review-list'>
       <Grid
-        templateColumns='repeat(1, 1fr)'
-        gap={5}
+        templateColumns='repeat(2, 1fr)'
+        templateRows={'repeat(2, 1fr)'}
+        gap={3}
         padding={2}
         // height={'100vh'}
         // overflowY='scroll'
       >
         {reviews ? (
           reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} user={user} />
+            <ReviewCard key={review.id} review={review} me={user} />
           ))
         ) : (
           <Progress size='md' w='145vh' colorScheme='teal' isIndeterminate />

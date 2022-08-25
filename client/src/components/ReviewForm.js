@@ -25,8 +25,6 @@ const ReviewForm = ({ track, user, onClose }) => {
     title: '',
     description: '',
     rating: 1,
-    user_id: user.id,
-    track_id: track.id,
   };
   const [formData, setFormData] = useState(defaultFormData);
   const [submitted, setSubmitted] = useState(false);

@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :find_review, only: [:show, :destroy]
+  before_action :find_review, only: [:show, :update, :destroy]
   def index
     render json: Review.all, status: :ok
   end
@@ -14,7 +14,8 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review.update!(review_params)
+    # byebug
+    @review.update!(update_params)
     render json: @review, status: :accepted
   end
 
@@ -26,11 +27,14 @@ class ReviewsController < ApplicationController
   private
 
   def find_review
-    @review = Review.find((params[:id]))
+    @review = Review.find(params[:id])
   end
 
+  def update_params
+    params.permit(:title, :description, :rating)
+  end
   def review_params
-    params.permit(:title, :description, :rating, :track_id, :user_id)
+    params.permit(:id, :title, :description, :rating, :track_id, :user_id, :review)
   end
 end
 

@@ -14,7 +14,7 @@ class LikesController < ApplicationController
   end
 
   def update
-    @like.update!(like_params))
+    @like.update!(like_params)
     render json: @like, status: :accepted
   end
 
@@ -30,6 +30,6 @@ class LikesController < ApplicationController
   end
 
   def like_params
-    params.permit(:user, :review)
+    params.permit(:user_id, :review_id, :like)
   end
 end

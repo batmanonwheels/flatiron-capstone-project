@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   end
 
   def show
-    render json: @comment, status: :ok
+    render json: @comment,  status: :ok
   end
 
   def create
@@ -30,6 +30,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.permit(:description, :review, :user)
+    params.permit( :user_id, :review_id, :description)
   end
 end

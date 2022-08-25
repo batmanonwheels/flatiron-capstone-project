@@ -1,22 +1,27 @@
 import React from 'react';
 import TrackCard from './TrackCard';
 import { Grid, GridItem, Heading, Progress } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 function TrackList({ user, tracks, setRecentTracks }) {
+  const navigate = useNavigate();
   const handleFavorite = (track) => {
-    // console.log('Creating/Finding track in DB');
-    // const favoriteObj = {
-    //   track: track,
-    //   user_id: user.id,
-    // };
-    // console.log(`Tracks name is ${track.title}`);
-    // fetch('/api/favorites', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(favoriteObj),
-    // }).then((r) => r.json());
+    console.log('Creating/Finding track in DB');
+    const favoriteObj = {
+      track: track,
+      user_id: user.id,
+    };
+    console.log(`Tracks name is ${track.title}`);
+    fetch('/api/favorites', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(favoriteObj),
+    })
+      .then((r) => r.json())
+      .then((data) => setRecentTracks([...data]));
+    // navigate(`/me`);
   };
   return (
     <div className='track-list'>

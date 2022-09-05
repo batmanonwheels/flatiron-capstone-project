@@ -25,10 +25,12 @@ const TrackCard = ({
   preview,
   albumType,
   setRecentTracks,
+  onFavoriteClick,
 }) => {
   const [buttonText, setButtonText] = useState('Add To Favorites  ');
   const [buttonColor, setButtonColor] = useState('teal');
   const toast = useToast();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -44,11 +46,8 @@ const TrackCard = ({
       duration: 4500,
       isClosable: true,
     });
-    setRecentTracks((current) =>
-      current.filter((favTrack) => {
-        return favTrack.name !== track.name;
-      })
-    );
+    setIsFavorite(!isFavorite);
+    onFavoriteClick(track);
   };
 
   return (
@@ -96,7 +95,7 @@ const TrackCard = ({
                   sx={{ position: 'absolute', bottom: '0', right: '0' }}
                 >
                   <StarIcon w={10} />
-                  Add To Favorites
+                  {!isFavorite ? 'Add To Favorites' : 'Favorited!'}
                 </Button>
               </Box>
             </SimpleGrid>

@@ -107,7 +107,7 @@ const ReviewDetail = ({
     // console.log(likeData);
   };
 
-  // console.log(comments);
+  console.log(comments);
 
   return (
     <>
@@ -207,38 +207,50 @@ const ReviewDetail = ({
         <ModalBody>
           <VStack height='100%'>
             {comments.map((comment) => (
-              <Box>
-                <HStack spacing={8} mb={5}>
-                  <Box height={'100%'}>
-                    <Divider
-                      orientation='vertical'
-                      // height='100%'
-                      // borderWidth={'0px 0px 0px 10px'}
-                      color={'teal'}
-                      width={'10px'}
-                    />
-                  </Box>
-                  <Box w>
-                    <Text size={'md'} style={{ whiteSpace: 'pre-wrap' }}>
-                      {comment.description}
-                    </Text>
-                  </Box>
-                  <Box>
-                    <HStack>
-                      <GridItem>
-                        <Avatar
-                          size='sm'
-                          href={user.uri}
-                          name={user.full_name}
-                          src={user.profile_pic}
-                          marginTop={3}
-                        />
-                      </GridItem>
-                      <GridItem>{user.full_name.split(' ')[0]}</GridItem>
-                    </HStack>
-                  </Box>
-                </HStack>
-              </Box>
+              <Stack direction='row' h='100px' p={4}>
+                <Divider orientation='vertical' />
+                <Text minW={'20vw'}>{comment.description}</Text>
+                <Avatar
+                  size='sm'
+                  href={comment.user.uri}
+                  name={comment.user.full_name}
+                  src={comment.user.profile_pic}
+                  marginTop={3}
+                />
+                <Text>{user.full_name.split(' ')[0]}</Text>
+              </Stack>
+              // <Box>
+              //   <HStack spacing={8} mb={5}>
+              //     <Box height={'100%'}>
+              //       <Divider
+              //         orientation='vertical'
+              //         // height='100%'
+              //         // borderWidth={'0px 0px 0px 10px'}
+              //         color={'teal'}
+              //         width={'10px'}
+              //       />
+              //     </Box>
+              //     <Box w>
+              //       <Text size={'md'} style={{ whiteSpace: 'pre-wrap' }}>
+              //         {comment.description}
+              //       </Text>
+              //     </Box>
+              //     <Box>
+              //       <HStack>
+              //         <GridItem>
+              //           <Avatar
+              //             size='sm'
+              //             href={user.uri}
+              //             name={user.full_name}
+              //             src={user.profile_pic}
+              //             marginTop={3}
+              //           />
+              //         </GridItem>
+              //         <GridItem>{user.full_name.split(' ')[0]}</GridItem>
+              //       </HStack>
+              //     </Box>
+              //   </HStack>
+              // </Box>
             ))}
           </VStack>
         </ModalBody>

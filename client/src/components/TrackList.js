@@ -1,10 +1,8 @@
 import React from 'react';
 import TrackCard from './TrackCard';
-import { Grid, GridItem, Heading, Progress } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Grid, Progress } from '@chakra-ui/react';
 
 function TrackList({ user, tracks, setRecentTracks }) {
-  const navigate = useNavigate();
   const handleFavorite = (track) => {
     console.log('Creating/Finding track in DB');
     const favoriteObj = {
@@ -21,8 +19,16 @@ function TrackList({ user, tracks, setRecentTracks }) {
     })
       .then((r) => r.json())
       .then((data) => setRecentTracks([...data]));
-    // navigate(`/me`);
   };
+
+  const onFavoriteClick = (track) => {
+    setRecentTracks((current) =>
+      current.filter((favTrack) => {
+        return favTrack.name !== track.name;
+      })
+    );
+  };
+
   return (
     <div className='track-list'>
       <Grid templateColumns='repeat(3, 1fr)' gap={3} padding={2}>
@@ -39,6 +45,7 @@ function TrackList({ user, tracks, setRecentTracks }) {
               preview={item.track.preview_url}
               artist={item.track.artists[0].name}
               handleFavorite={handleFavorite}
+              onFavoriteClick={onFavoriteClick}
             />
           ))
         ) : (

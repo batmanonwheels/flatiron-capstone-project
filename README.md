@@ -1,4 +1,6 @@
 # SYNESTHESIA
+<img width="1512" alt="Screen Shot 2022-09-05 at 2 58 17 PM" src="https://user-images.githubusercontent.com/5254749/188505347-d56efbd4-b775-4f18-bbbd-e49b558368e7.png">
+
 > My goal was to create an app that allowed you to view your recent Spotify listening history and write reviews for your favorite songs. 
 > I called it Synesthesia because the intent of a music review is typically to fully encapsulate the song. In a way, by reading these reviews, you're seeing sounds.
 
@@ -101,6 +103,7 @@ Take the following steps to set up the servers in a development environment
 1. Login by connecting your Spotify account to the app.
 2. The homepage shows your recently played tracks. You can also browse your recently saved albums. 
 3. You can check your profile to view your favorited tracks, and write reviews for them as well.
+<img width="1512" alt="Screen Shot 2022-09-05 at 2 59 33 PM" src="https://user-images.githubusercontent.com/5254749/188505379-8400146b-ca79-4c9c-8a3b-812a20b70df6.png">
 4. View recent reviews, and like/comment on them to give feedback!
 
 ## Project Status

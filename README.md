@@ -81,9 +81,9 @@ Take the following steps to set up the servers in a development environment
 - Ensure postgres is insalled locally 
 ### Backend
 - `bundle install`
-- `sign into the spotify developer dashboard[here](https://developer.spotify.com/dashboard/login) and create an app. For more info regarding the Spotify API, refer to the [docs](https://developer.spotify.com/documentation/web-api/)`
-- `retrieve your client ID and SECRET and put it in ENV variables, alongside your redirect URL (make sure the variable names are CLIENT_ID, CLIENT_SECRET, and REDIRECT_URL) in the config/application.yml file.`
-- NOTE: PLEASE MAKE SURE THAT THE FILE IS BEING IGNORED BY GIT, as this data is very sensitive. `
+- Sign into the spotify developer dashboard[here](https://developer.spotify.com/dashboard/login) and create an app. For more info regarding the Spotify API, refer to the [docs](https://developer.spotify.com/documentation/web-api/)`
+- Retrieve your client ID and SECRET and put it in ENV variables, alongside your redirect URL (make sure the variable names are CLIENT_ID, CLIENT_SECRET, and REDIRECT_URL) in the config/application.yml file.
+- NOTE: PLEASE MAKE SURE THAT THE FILE IS BEING IGNORED BY GIT, as this data is very sensitive.
 - `rails db:create`
 - `rails db:migrate`
 - `sudo service postgresql start`

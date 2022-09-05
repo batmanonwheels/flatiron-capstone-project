@@ -71,7 +71,14 @@ function App() {
               />
             </Box>
           </GridItem>
-          <GridItem pl='2' area={'main'} rowStart={1} minH={1000}>
+          <GridItem
+            pl='2'
+            area={'main'}
+            rowStart={1}
+            minH={1000}
+            pr='2'
+            // maxH='100%'
+          >
             {user ? (
               <Routes>
                 <Route

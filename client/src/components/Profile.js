@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import {
   Box,
+  Divider,
   Grid,
   GridItem,
   Heading,
@@ -63,8 +64,9 @@ const Profile = ({}) => {
           zIndex={5}
           pb='10'
         >
-          <Heading size='xl'>{user.full_name}'s</Heading>
+          <Heading size='xl'>{user.full_name}</Heading>
         </GridItem>
+
         {/* <h2>{user.full_name?.split(' ')[0]}'s Recently Played Tracks</h2> */}
         <GridItem
           pl='2'

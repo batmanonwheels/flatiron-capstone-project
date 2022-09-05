@@ -1,19 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Grid,
-  GridItem,
-  Image,
-  LinkBox,
-  Link,
-  SimpleGrid,
-  Box,
-  Button,
-  Progress,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-} from '@chakra-ui/react';
+import { Grid, Progress, ModalHeader, ModalBody } from '@chakra-ui/react';
 import UserContext from '../context/user';
 
 import TrackCard from './TrackCard';

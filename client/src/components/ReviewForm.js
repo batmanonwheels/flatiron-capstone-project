@@ -1,5 +1,4 @@
 import {
-  Heading,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -10,21 +9,20 @@ import {
   FormHelperText,
   Textarea,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   useToast,
   Select,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import UserContext from '../context/user';
 
-const ReviewForm = ({ track, user, onClose }) => {
+const ReviewForm = ({ track, onClose }) => {
+  const { user, setUser } = useContext(UserContext);
   const defaultFormData = {
     title: '',
     description: '',
     rating: 1,
+    user_id: user.id,
+    track_id: track.id,
   };
   const [formData, setFormData] = useState(defaultFormData);
   const [submitted, setSubmitted] = useState(false);
@@ -43,7 +41,7 @@ const ReviewForm = ({ track, user, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.title && !!formData.description && !!formData.rating) {
-      fetch('api/reviews', {
+      fetch('/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,15 +49,19 @@ const ReviewForm = ({ track, user, onClose }) => {
         body: JSON.stringify(formData),
       })
         .then((r) => r.json())
-        .then((review) => console.log(review));
-      // .then(setFormData(defaultFormData));
-    } else {
-      // console.log(formData)
-      // setSubmitted("Submitted!");
-      console.log(formData);
+        .then((review) => console.log(review))
+        .then((review) => setFormData(defaultFormData));
+      toast({
+        title: `${track.name} - ${track.artist}`,
+        description: 'Created Review!',
+        position: 'bottom-right',
+        variant: 'subtle',
+        status: 'success',
+        duration: 4500,
+        isClosable: true,
+      });
     }
   };
-  // console.log(formData);
   return (
     <>
       {!submitted ? (

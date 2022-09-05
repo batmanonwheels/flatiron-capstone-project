@@ -26,7 +26,8 @@ function Header({ user, setUser, handleLogout }) {
             <Button
               marginTop={3}
               marginBottom={1}
-              colorScheme='teal'
+              textColor={'white'}
+              bgGradient='linear(to-tr, teal.400, gray.400)'
               minW={'10vh'}
             >
               Tracks
@@ -36,7 +37,8 @@ function Header({ user, setUser, handleLogout }) {
             <Button
               marginTop={3}
               marginBottom={1}
-              colorScheme='teal'
+              textColor={'white'}
+              bgGradient='linear(to-tr, teal.400, gray.400)'
               minW={'10vh'}
             >
               Albums
@@ -46,7 +48,8 @@ function Header({ user, setUser, handleLogout }) {
             <Button
               marginTop={3}
               marginBottom={1}
-              colorScheme='teal'
+              textColor={'white'}
+              bgGradient='linear(to-tr, teal.400, gray.400)'
               minW={'10vh'}
             >
               Reviews
@@ -56,7 +59,8 @@ function Header({ user, setUser, handleLogout }) {
             mt={3}
             // marginBottom={1}
             loadingText='See you soon!'
-            colorScheme='teal'
+            textColor={'white'}
+            bgGradient='linear(to-tr, teal.400, gray.400)'
             onClick={(e) => handleLogout(e)}
             variant='outline'
             minW={'10vh'}
@@ -67,7 +71,11 @@ function Header({ user, setUser, handleLogout }) {
         </div>
       ) : (
         <a href='http://localhost:3000/api/v1/login'>
-          <Button loadingText='Connecting...' colorScheme='teal' maxW='100%'>
+          <Button
+            loadingText='Connecting...'
+            bgGradient='linear(to-tr, teal.400, gray.400)'
+            maxW='100%'
+          >
             Login to <br></br> Spotify!
           </Button>
         </a>

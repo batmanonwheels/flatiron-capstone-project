@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :find_review, only: [:show, :update, :destroy]
   def index
-    render json: Review.all, status: :ok
+    render json: Review.all, include: "*.*", status: :ok
   end
 
   def show
@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review = Review.create!(review_params)
+    review = Review.create(review_params)
     render json: review, status: :created
   end
 

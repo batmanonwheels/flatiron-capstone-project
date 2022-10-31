@@ -1,23 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Tracks from './components/Tracks';
 import SideBar from './components/SideBar';
 import Reviews from './components/Reviews';
 import Profile from './components/Profile';
 import Albums from './components/Albums';
-import {
-  Grid,
-  GridItem,
-  Text,
-  Heading,
-  Box,
-  useToast,
-  Progress,
-} from '@chakra-ui/react';
-import { theme } from '@chakra-ui/react';
-// import UserContext from './context/user';
+import BottomBar from './components/BottomBar';
+import { Grid, GridItem, Heading, Progress } from '@chakra-ui/react';
 import UserContext from './context/user';
-import { FasterOne } from '@fontsource/faster-one';
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -36,23 +26,24 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className='App' style={{ maxW: '100vh' }}>
+      <div className='App' maxW={'100%'}>
         <Grid
           templateAreas={`"nav main"
                   "nav main"
                   "nav footer"`}
-          gridTemplateRows={'100px 1fr 80px'}
-          gridTemplateColumns={'125px 1fr'}
+          // gridTemplateRows={'100vh 1fr '}
+          gridTemplateColumns={'7.25vw 1fr'}
           // maxW={'100vh'}
-          h='100%'
+          h='100vh'
           gap='2'
           color='black'
           fontWeight='bold'
+          overflowX='hidden'
         >
           <GridItem
             pl='2'
             rowStart={1}
-            h='95vh'
+            h={'95%'}
             pos='sticky'
             // bottom={0}
             top={0}
@@ -62,14 +53,12 @@ function App() {
             bgGradient='linear(to-t, gray.200, white)'
             zIndex='5'
           >
-            <Box>
-              <SideBar
-                // pos='sticky'
-                user={user}
-                setUser={setUser}
-                handleLogout={handleLogout}
-              />
-            </Box>
+            <SideBar
+              // pos='sticky'
+              user={user}
+              setUser={setUser}
+              handleLogout={handleLogout}
+            />
           </GridItem>
           <GridItem
             pl='2'
@@ -120,29 +109,21 @@ function App() {
             )}
           </GridItem>
           <GridItem
-            pl='2'
+            pl='0.1'
             colStart={1}
             rowStart={10}
             bg='gray.200'
-            pos='sticky'
             bottom={0}
-            h='100%'
+            pos='fixed'
+            h='9.5vh'
+            minW={'100%'}
             area={'footer'}
             zIndex='5'
-            bgGradient='linear(to-tr, gray.300,  white)'
+            paddingTop={0}
+            bgGradient='linear(to-tr, gray.300, white)'
+            // sx={{ position: 'sticky' bottom}}
           >
-            <Heading
-              fontSize='93px'
-              size={'4xl'}
-              bgClip='text'
-              bgGradient='linear(to-r,teal.400, pink.300)'
-              zIndex='6'
-              sx={{
-                fontFamily: 'Faster One',
-              }}
-            >
-              Synesthesia
-            </Heading>
+            <BottomBar />
           </GridItem>
         </Grid>
       </div>

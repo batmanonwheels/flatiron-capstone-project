@@ -31,7 +31,7 @@ function TrackList({ user, tracks, setRecentTracks }) {
 
   return (
     <div className='track-list'>
-      <Grid templateColumns='repeat(3, 1fr)' gap={3} padding={2}>
+      <Grid templateColumns='repeat(3, 1fr)' gap={4} padding={1}>
         {tracks ? (
           tracks.items.map((item) => (
             <TrackCard

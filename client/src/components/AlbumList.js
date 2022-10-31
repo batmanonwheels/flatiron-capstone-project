@@ -23,14 +23,10 @@ const AlbumList = ({ user, albums, setAlbums }) => {
       .then((data) => setAlbums([...data]));
     navigate(`/me`);
   };
+
   return (
     <div className='track-list'>
-      <Grid
-        templateColumns='repeat(3, 1fr)'
-        templateRows='repeat(3, 1fr)'
-        gap={3}
-        padding={2}
-      >
+      <Grid templateColumns='repeat(3, 1fr)' gap={4} padding={1}>
         {albums ? (
           albums.items.map((item) => (
             <AlbumCard
@@ -41,6 +37,7 @@ const AlbumList = ({ user, albums, setAlbums }) => {
               albumType={item.album.type}
               spotifyLink={item.album.uri}
               artist={item.album.artists[0].name}
+              releaseDate={item.album.release_date}
             />
           ))
         ) : (

@@ -26,7 +26,9 @@ function Reviews({ name }) {
             bg='white'
             zIndex={998}
           >
-            <Heading size='xl'>Recent Reviews</Heading>
+            <Heading size='xl' fontSize={'3.5vh'}>
+              Recent Reviews
+            </Heading>
           </GridItem>
           <GridItem pl='2' area={'body'} overflow-y='auto'>
             <ReviewList user={user} />

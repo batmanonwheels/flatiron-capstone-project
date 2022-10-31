@@ -12,14 +12,13 @@ function Header({ user, setUser, handleLogout }) {
         <div className='user-profile'>
           <Link to='/me'>
             <Avatar
-              size='xl'
-              minW={'5vw'}
+              // size='xl'
               href={user.uri}
               name={user.full_name}
               src={user.profile_pic}
               marginTop={3}
-              height={''}
-              minH={'8vh'}
+              w={'6.1vw'}
+              h={'10vh'}
             />
           </Link>
           <Link to='/'>
@@ -28,7 +27,9 @@ function Header({ user, setUser, handleLogout }) {
               marginBottom={1}
               textColor={'white'}
               bgGradient='linear(to-tr, teal.400, gray.400)'
-              minW={'10vh'}
+              w={'6.1vw'}
+              h={'4.5vh'}
+              fontSize='1.7vh'
             >
               Tracks
             </Button>
@@ -39,7 +40,9 @@ function Header({ user, setUser, handleLogout }) {
               marginBottom={1}
               textColor={'white'}
               bgGradient='linear(to-tr, teal.400, gray.400)'
-              minW={'10vh'}
+              w={'6.1vw'}
+              h={'4.5vh'}
+              fontSize='1.7vh'
             >
               Albums
             </Button>
@@ -50,7 +53,9 @@ function Header({ user, setUser, handleLogout }) {
               marginBottom={1}
               textColor={'white'}
               bgGradient='linear(to-tr, teal.400, gray.400)'
-              minW={'10vh'}
+              w={'6.1vw'}
+              h={'4.5vh'}
+              fontSize='1.7vh'
             >
               Reviews
             </Button>
@@ -63,7 +68,9 @@ function Header({ user, setUser, handleLogout }) {
             bgGradient='linear(to-tr, teal.400, gray.400)'
             onClick={(e) => handleLogout(e)}
             variant='outline'
-            minW={'10vh'}
+            w={'6.1vw'}
+            h={'4.5vh'}
+            fontSize='1.7vh'
           >
             Logout
           </Button>
@@ -74,7 +81,9 @@ function Header({ user, setUser, handleLogout }) {
           <Button
             loadingText='Connecting...'
             bgGradient='linear(to-tr, teal.400, gray.400)'
-            maxW='100%'
+            w={'6vw'}
+            h={'5vh'}
+            fontSize='1.7vh'
           >
             Login to <br></br> Spotify!
           </Button>

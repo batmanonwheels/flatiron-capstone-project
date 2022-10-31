@@ -41,7 +41,7 @@ const Albums = () => {
           bg='white'
           zIndex={998}
         >
-          <Heading size='xl'>
+          <Heading size='xl' fontSize={'3.5vh'} marginBottom={'0vh'}>
             {user.full_name?.split(' ')[0]}'s Recently Saved Albums
           </Heading>
         </GridItem>
